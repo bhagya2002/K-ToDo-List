@@ -1,2 +1,4 @@
-# ToDo-List
-Online website that is a ToDo List
+# To-Do List
+
+This is my online todolist project
+this is for my online project
