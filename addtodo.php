@@ -5,6 +5,7 @@ include('config/db_connect.php');
 $todo = '';
 $dater = '';
 $errors = array('todo' => '', 'dated' => '');
+$namer = $_SESSION['user'];
 
 if (isset($_POST['submit'])) {
 
@@ -30,7 +31,7 @@ if (isset($_POST['submit'])) {
         // $date = mysqli_real_escape_string($conn, $_POST['date']);
 
         // create sql
-        $sql = "INSERT INTO addtodo(todo, dated) VALUES('$todo', '$dater')";
+        $sql = "INSERT INTO addtodo(todo, dated, user) VALUES('$todo', '$dater', '$namer')";
 
 
         // save to db and check

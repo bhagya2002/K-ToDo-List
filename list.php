@@ -2,9 +2,10 @@
 session_start();
 // My SQLi or PDO
 include('config/db_connect.php');
+$userd = $_SESSION['user'];
 
-// write query for all pizzas
-$sql = 'SELECT todo, id FROM addtodo ORDER BY dated';
+// write query for all to-do's
+$sql = "SELECT * FROM addtodo WHERE user = '$userd' ORDER BY dated";
 
 // make query & get results
 $result = mysqli_query($conn, $sql);
