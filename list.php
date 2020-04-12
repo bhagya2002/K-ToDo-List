@@ -463,11 +463,11 @@ h6 {
 <div id="myNav" class="overlay">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="overlay-content">
-            <a href="category/math.php">Math.</a>
-            <a href="category/bio.php">Biology.</a>
-            <a href="category/chem.php">Chemistry.</a>
-            <a href="category/phys.php">Physics.</a>
-            <a href="category/other.php">Other.</a>
+            <a href="math.php">Math.</a>
+            <a href="bio.php">Biology.</a>
+            <a href="chem.php">Chemistry.</a>
+            <a href="phys.php">Physics.</a>
+            <a href="other.php">Other.</a>
 
         </div>
     </div>

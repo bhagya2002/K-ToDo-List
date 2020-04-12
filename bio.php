@@ -2,9 +2,10 @@
 session_start();
 // My SQLi or PDO
 include('config/db_connect.php');
+$userd = $_SESSION['user'];
 
 // write query for all to-do's
-$sql = "SELECT * FROM addtodo WHERE categor = 'Biology' ORDER BY dated";
+$sql = "SELECT * FROM addtodo WHERE categor = 'Biology' AND user = '$userd' ORDER BY dated";
 
 // make query & get results
 $result = mysqli_query($conn, $sql);
@@ -243,11 +244,11 @@ h6 {
 <div id="myNav" class="overlay">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="overlay-content">
-            <a href="category/math.php">Math.</a>
+            <a href="math.php">Math.</a>
             <a href="#">Biology.</a>
-            <a href="category/chem.php">Chemistry.</a>
-            <a href="category/phys.php">Physics.</a>
-            <a href="category/other.php">Other.</a>
+            <a href="chem.php">Chemistry.</a>
+            <a href="phys.php">Physics.</a>
+            <a href="other.php">Other.</a>
 
         </div>
     </div>
