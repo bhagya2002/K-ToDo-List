@@ -4,7 +4,8 @@ include('config/db_connect.php');
 
 $todo = '';
 $dater = '';
-$errors = array('todo' => '', 'dated' => '');
+$cate = '';
+$errors = array('todo' => '', 'dated' => '', 'option' => '');
 $namer = $_SESSION['user'];
 
 if (isset($_POST['submit'])) {
@@ -23,15 +24,41 @@ if (isset($_POST['submit'])) {
         $dater = $_POST['dated'];
     }
 
+    // check category
+    if (empty($_POST['cate'])) {
+        $errors['option'] = 'A category is required <br>';
+    }else {
+        switch ($_POST['cate']) {
+            case "Math":
+                $cate = $_POST['cate'];
+            break;
+            case "Biology":
+                $cate = $_POST['cate'];
+            break;
+            case "Chemistry":
+                $cate = $_POST['cate'];
+            break;
+            case "Physics":
+                $cate = $_POST['cate'];
+            break;
+            case "Other":
+                $cate = $_POST['cate'];
+            break;
+        }
+    }
+
+
+    // after validation
     if (array_filter($errors)) {
         // echo 'errors in the form';
     } else {
         $todo = mysqli_real_escape_string($conn, $_POST['todo']);
         $dater = mysqli_real_escape_string($conn, $_POST['dated']);
-        // $date = mysqli_real_escape_string($conn, $_POST['date']);
+        $cate = mysqli_real_escape_string($conn, $_POST['cate']);
+     
 
         // create sql
-        $sql = "INSERT INTO addtodo(todo, dated, user) VALUES('$todo', '$dater', '$namer')";
+        $sql = "INSERT INTO addtodo(todo, dated, user, categor) VALUES('$todo', '$dater', '$namer', '$cate')";
 
 
         // save to db and check
@@ -119,7 +146,7 @@ body {
         margin: 5px auto;
         margin-top:35px;
         padding: 20px;
-        height: 300px;
+        height: 500px;
         width: 85%;
     border-radius:5px;
     }
@@ -180,21 +207,47 @@ position:absolute;
         </div>
     <hr class="title-line">
 
+<!-- section -->
     <section class="filllist left container grey-text">
+
+    <!-- form -->
         <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" class="white">
+
+        <!-- to-do -->
             <label class="labelled">What do you need done?</label>
             <input class="input-field" type="text" name="todo" value="<?php echo htmlspecialchars($todo) ?>">
             <div class="red-text"><?php echo $errors['todo']; ?></div>
+            <!-- date for when it needs to be done -->
             <label for="dated" class="labelled">Enter a date for when this is due:</label>
-  <input class="input-field" type="date" id="dated" name="dated" placeholder="yyyy-mm-dd" min="2020-03-31" value="<?php echo htmlspecialchars($dater) ?>"><br>
+  <input class="input-field" type="date" id="dated" name="dated" placeholder="yyyy-mm-dd" min="2020-03-31" value="<?php echo htmlspecialchars($dater) ?>">
         <div class="red-text"><?php echo $errors['dated']; ?></div>
+
+        <label for="cate" class="labelled">What category does this fall under?</label>
+        <input class="input-field" list="browsers" name="cate" value="<?php echo htmlspecialchars($cate) ?>">
+  <datalist id="browsers" name="cate-options">
+    <option value="Math">
+    <option value="Biology">
+    <option value="Chemistry">
+    <option value="Physics">
+    <option value="Other">
+  </datalist>
+  <br>
+  <div class="red-text"><?php echo $errors['option']; ?></div>
+
+ 
+
+
+        <!-- submit form -->
             <div class="left">
                 <input type="submit" name="submit" value="submit" class="colored btn brand z-depth-0">
+                <!-- cancel form -->
                 <div>
                     <a href="list.php" class="colored cancel btn brand z-depth-0">Cancel</a>
                 </div>
             </div>
+
         </form>
+
     </section>
 
 <!-- typewriter -->

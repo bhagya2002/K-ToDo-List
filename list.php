@@ -397,8 +397,7 @@ h6 {
         z-index: 1;
         top: 0;
         left: 0;
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.9);
+        background-color: rgba(255, 255, 255, 0.85);
         overflow-x: hidden;
         transition: 0.5s;
     }
@@ -416,14 +415,14 @@ h6 {
         padding: 8px;
         text-decoration: none;
         font-size: 36px;
-        color: #818181;
+        color: #EF9A9A;
         display: block;
         transition: 0.5s;
     }
 
     .overlay a:hover,
     .overlay a:focus {
-        color: white;
+        color: #555;
         transition: 0.6s;
     }
 
@@ -446,6 +445,7 @@ h6 {
         }
     }
     
+    /* logout */
     .finger{
         transition: 0.4s;
          color: #EF9A9A;
@@ -463,11 +463,11 @@ h6 {
 <div id="myNav" class="overlay">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="overlay-content">
-            <a href="#">Math.</a>
-            <a href="#">Biology.</a>
-            <a href="#">Chemistry.</a>
-            <a href="#">Physics.</a>
-            <a href="#">Add your own category.</a>
+            <a href="category/math.php">Math.</a>
+            <a href="category/bio.php">Biology.</a>
+            <a href="category/chem.php">Chemistry.</a>
+            <a href="category/phys.php">Physics.</a>
+            <a href="category/other.php">Other.</a>
 
         </div>
     </div>
