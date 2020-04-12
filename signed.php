@@ -1,4 +1,5 @@
 <?php
+session_start();
 // My SQLi or PDO
 include('config/db_connect.php');
 ?>

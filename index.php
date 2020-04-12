@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('config/db_connect.php');
 
 $email = $pass = '';
@@ -31,13 +32,25 @@ if (isset($_POST['submit'])) {
 }
         // create sql
         $sql = "SELECT * FROM users WHERE inemail = '$email' AND inpass = '$pass'";
+
         $result = mysqli_query($conn, $sql);
+
         
         if (mysqli_num_rows($result) > 0 ) {
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
     //  success
             header('Location: signed.php');
+            $_SESSION["user"] = $row['fname'];
+
+            // the message
+$msg = "First line of text\nSecond line of text";
+
+// use wordwrap() if lines are longer than 70 characters
+$msg = wordwrap($msg,70);
+
+// send email
+mail("look_its_bhagya@yahoo.com","My subject",$msg);
     }
 } else {
    // error

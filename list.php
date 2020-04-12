@@ -1,4 +1,5 @@
 <?php
+session_start();
 // My SQLi or PDO
 include('config/db_connect.php');
 
@@ -234,11 +235,23 @@ h6 {
     font-size: 31px;
     color:#EF9A9A;
 }
+/* what general time of the day */
+#user {
+    position: absolute;
+    top: -17px; left: 35px; bottom: 0; right: 15px;
+    padding-top: 45px;
+    font-family: courier, monospace;
+    float: right;
+    color: white;
+    font-size: 36px;
+    color:#EF9A9A;
+    z-index: 5;
+}
 
 /*whats the time*/
 #clock {
     position: absolute;
-    top: -49px; left: 0; bottom: 0; right: 10px;
+    top: -19px; left: 0; bottom: 0; right: 10px;
     padding-top: 70px;
     font-family: courier, monospace;
     text-align: right ;
@@ -250,7 +263,7 @@ h6 {
 /*day of the week*/
 #dater {
     position: absolute;
-    top: 25px; left: 0; bottom: 0; right: 15px;
+    top: 55px; left: 0; bottom: 0; right: 15px;
     padding-top: 45px;
     font-family: courier, monospace;
     float: right;
@@ -262,7 +275,7 @@ h6 {
 /*date*/
 #dated {
     position: absolute;
-    top: 25px; left: 0; bottom: 0; right: 15px;
+    top: 55px; left: 0; bottom: 0; right: 15px;
     padding-top: 105px;
     font-family: courier, monospace;
     float: right;
@@ -274,7 +287,7 @@ h6 {
 /* hr break */
 .liner{
     position: absolute;
-    top: 165px;
+    top: 195px;
     z-index:10;
     width: 100%;
     height:2px;
@@ -300,7 +313,7 @@ h6 {
 /* Quote stuff */
 #quote-container {
     position: absolute;
-    top: 175px;
+    top: 205px;
     width: 100%;
     height: 300px;
     color: #EF9A9A;
@@ -510,6 +523,7 @@ h6 {
 <div>
 <!-- saying -->
 <div id='saying' class="right-align"></div>
+<div id="user" class="right-align"> <?php echo $_SESSION['user']?>!</div>
      <br>
 <!-- time -->
      <div id='clock' class="right-align"></div>
@@ -583,14 +597,15 @@ if (minutes < 10) {
 }
 
 if (hours >= 5 && hours < 12) {
-    saying = "Good Morning!"
+    saying = "Good Morning" 
 } else if (hours >= 12 && hours < 15) {
-    saying = "Good Afternoon!"
+    saying = "Good Afternoon"
 } else if(hours >= 15 && hours < 18){
-    saying = "Good Evening!"
+    saying = "Good Evening"
 }else {
-    saying = "Good Night!"
+    saying = "Good Night"
 }
+console.log(saying);
     // This gets a "handle" to the clock div in our HTML
     var clockDiv = document.getElementById('clock');
     var dateDiv = document.getElementById('dated');
