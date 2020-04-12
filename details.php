@@ -1,21 +1,18 @@
 <?php
 session_start();
-// connect to the database
 include('config/db_connect.php');
 
-// this is run when the form is submit
+
 if (isset($_POST['delete'])) {
     $id_to_delete = mysqli_real_escape_string($conn, $_POST['id_to_delete']);
 
-    // crete SQL to delete rows
     $sql = "DELETE FROM addtodo WHERE id = $id_to_delete";
 
-    // connection and finalize no errors
     if (mysqli_query($conn, $sql)) {
-        //success and redirect
-        header("Location: signed.php");
+        //success
+        header("Location: list.php");
     } {
-        //failure and display error
+        //failure
         echo 'query error: ' . mysqli_error(($conn));
     }
 }
@@ -41,11 +38,25 @@ if (isset($_GET['id'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ToDo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<body class="white">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- materialze icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- materialize js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+</head>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Staatliches');
+@import url('https://fonts.googleapis.com/css?family=Caveat|Merienda');
         .brand {
             background: #cbb09c !important;
         }
@@ -56,12 +67,6 @@ if (isset($_GET['id'])) {
 
         form {
             max-width: 620px;
-        }
-
-        hr {
-            width: 75%;
-            height: 0.55px;
-            background-color: grey;
         }
 
         .info {
@@ -75,40 +80,140 @@ if (isset($_GET['id'])) {
 
             }
         }
+
+        body {
+        background: #EF9A9A;
+    }
+
+/*title*/
+#maintitle{
+    font-family: courier, monospace;
+    color: white;
+    font-size: 30px;
+    margin-left: 0%;
+    margin-top: 15px;
+    font-size: 240%;
+     background: #EF9A9A;
+    }
+
+    .lets {
+    animation: typing 0.95s;
+}
+@keyframes typing
+{
+     0% {
+        border-right: 2px solid white;
+     }
+     99.999% {
+        border-right: 2px solid white;
+     }
+     100% {
+        border-right: none;
+     }
+}
+
+/*hr tag*/
+.title-line{
+    position:absolute;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+    height: 2px;
+     border:none;
+     left: 13%;
+     top: 55px;
+     width:60%;
+    }
+
+    .doheader {
+        margin-top: 25px;
+        font-size:34px;
+        font-family: courier, monospace;
+        text-decoration: underline;
+    }
+    .do {
+        margin-top:-20px;
+        margin-left: 25px;
+        font-size: 25px;
+        font-family: courier, monospace;
+    }
+    
+
+    .colored {
+      background: rgb(255,255,255);
+      color: rgb(239,154,154);
+      border: 0.5px solid rgba(218, 224, 219, 0.6);
+      transition: 0.3s;
+    }
+    
+    .colored:hover {
+        color: rgb(255,255,255);
+    background: rgb(239,154,154);
+    border: none;
+    }
+    .boxer {
+border-radius:5px;
+color:rgb(239,154,154) !important;
+padding-left: 10px;
+padding-bottom: 10px;
+    }
+    .creater  {
+        color: #555;
+    }
     </style>
 
-    <!-- body  -->
-    <body>
+<!-- entire body -->
+<body class="red lighten-3">
 
-    <!-- header for the title -->
-    <nav class="white z-depth-0">
-        <div class="container">
-        <!-- header -->
-            <a href="signed.php" id="title" class="brand-logo brand-text">ToDoList</a>
-            <!-- "nav bar" -->
-            <ul id="nav-mobile" class="right">
-            <!-- button to add a to-do -->
-                <li><a href="addtodo.php" class="btn brand z-depth-0">Add a ToDo</a></li>
-            </ul>
+<div class="container "><a href="list.php" id="maintitle" ></a>
         </div>
-    </nav>
-    <hr>
+    <hr class="title-line">
 
-    <div class="container grey-text ">
+    <div class="container white-text white boxer">
         <?php if ($todo) : ?>
-            <h4>ToDo: <br><?php echo htmlspecialchars($todo['todo']); ?></h4>
+            <div class="doheader">To-Do: </div>
+            <br>
+           <div class="do"> 
+           <?php echo htmlspecialchars($todo['todo']); ?>
+            </div>
 
-            <p><?php echo date($todo['created_at']); ?></p>
+<!-- needs to be done by -->
+<div>
+            <p> <span class="creater">  Needs to be done by: </span><?php echo date($todo['dated']); ?></p>
+            </div>
 
+<!-- created at the time stamp of -->
+            <div>
+            <p> <span class="creater">  Created at: </span><?php echo date($todo['created_at']); ?></p>
+            </div>
+            
             <!-- Delete FORM -->
             <form class="info" action="details.php" method="POST">
-                <input type="hidden" name="id_to_delete" value="<?php echo $todo['id'] ?>"> <input type="submit" name="delete" value="Delete" class=" btn brand z-depth-0">
+                <input type="hidden" name="id_to_delete" value="<?php echo $todo['id'] ?>"> <input type="submit" name="delete" value="Delete" class="colored btn z-depth-0">
             </form>
 
         <?php else : ?> <h5>No such ToDo exists!</h5>
         <?php endif; ?>
     </div>
 
+
+<!-- typewriter -->
+<script>
+ $(document).ready( function() {
+var i = 0;
+var txt = 'More Info!';
+var speed = 60;
+
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById("maintitle").innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+    document.getElementById("maintitle").classList.add("lets");
+  }
+}
+ // This runs the displayTime function the first time
+ typeWriter();
+});
+</script>
 </body>
 
 </html>
