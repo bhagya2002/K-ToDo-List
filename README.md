@@ -1,6 +1,6 @@
 ## K ToDo List
 
-The purpose of this project is to create an online task/assignment management system to learn and implement PHP alongside MySQL. For this project I used Apache and XAMPP to run a localhost which stored data on PHPMyAdmin. 
+The purpose of this project is to create an online task/assignment management system to learn and implement PHP alongside MySQL. For this project I used Apache and XAMPP to run a localhost which stored data on PHPMyAdmin. I had learnt material in class and had to apply it.
 
 ### Languages/Tools Used
 - The main compenent of the program was written in PHP and MySQL which was used to create a login system which would make this a more personalized project for each user. This meant information was stored seperately for each user and could be created, read, updated, and deleted. User data was stored on PHPMyAdmin which consisted of login details, user tasks/assignments (due dates, extra information, category, etc.)</br>
@@ -16,4 +16,6 @@ The purpose of this project is to create an online task/assignment management sy
 + you can create, read, update, and delete the To-Do's</br>
 
 ### Future Plans
-...
+- make it responsive</br>
+- create a mobile application</br>
+- add more features (ex. user create categories)
